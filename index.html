@@ -9,75 +9,86 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <!--Bootstrap Validate-->
     <script src="https://cdn.rawgit.com/PascaleBeier/bootstrap-validate/v2.2.0/dist/bootstrap-validate.js"></script>
+    <!-- Styling -->
+    <link rel="stylesheet" type="text/css" href="./assets/css/styles.css">
+    <!-- moment.js CDN -->
+    <script src="https://cdn.jsdelivr.net/momentjs/2.18.1/moment.min.js"></script>
     <title>Train Scheduler</title>
 </head>
 
 <body>
-    <div class="container">
-        <div class="jumbrotron">
-            <h3 class="text-center">Train Scheduler</h3>
+    <div class="container pageWrapper">
+        <div class="title">
+            <h3 class="display-4 text-center bg-dark">Train Scheduler</h3>
         </div>
-        <div class="row">
-            <h3>Current Train Scheule</h3>
-            <table class="table table-striped table-bordered " id="schedule-table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Train Name</th>
-                        <th scope="col">Destination</th>
-                        <th scope="col">Frequency(min)</th>
-                        <th scope="col">Next Arrival</th>
-                        <th scope="col">Minutes Away</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                        <td>0</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <!--div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="width:100%;height:300px;">
+            <img src="./assets/images/train-fall-foliage.jpg" alt="train-fall-colors" id="background" style="float:left;width:100%;height:100%;">
+        </div-->
+        <div class="parallax"></div>
         <br>
-        <div class="row admin">
-            <h3 class="w-100">Add Train</h3>
-            <div class="col admin-data">
-                <form class="needs-validation">
-                    <div class="form-group">
-                        <label for="train-name">Train Name</label>
-                        <input type="text" class="form-control" id="train-name" placeholder="Enter name of the train"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <label for="train-destination">Train destination</label>
-                        <input type="text" class="form-control" id="train-destination" placeholder="Enter destination"
-                            required>
-                    </div>
-                    <div class="form-group">
-                        <label for="train-time">First Train Time(HH:mm- military time)</label>
-                        <input type="time" class="form-control" id="train-time" placeholder="_ _:_ _ AM/PM" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="train-freq">Frequency(min)</label>
-                        <input type="number" class="form-control" id="train-freq" placeholder="Train frequency"
-                            required>
-                    </div>
-                    <button type="submit" id="submit" class="btn btn-secondary">Submit</button>
-                </form>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 ">
+                <h3 class="w-100 display-5 text-center bg-dark title">Current Train Schedule</h3>
+                <table class="table table-striped table-bordered " id="schedule-table">
+                    <thead class="thead-secondary">
+                        <tr>
+                            <th scope="col">Train Name</th>
+                            <th scope="col">Destination</th>
+                            <th scope="col">Frequency(min)</th>
+                            <th scope="col">Next Arrival</th>
+                            <th scope="col">Minutes Away</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 admin">
+                <h3 class="w-100 display-5 text-center bg-dark title">Add Train</h3>
+                <div class="col admin-data">
+                    <form class="needs-validation">
+                        <div class="form-group">
+                            <label for="train-name">Train Name</label>
+                            <input type="text" class="form-control" id="train-name"
+                                placeholder="Enter name of the train" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="train-destination">Train destination</label>
+                            <input type="text" class="form-control" id="train-destination"
+                                placeholder="Enter destination" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="train-time">First Train Time(HH:mm- military time)</label>
+                            <input type="time" class="form-control" id="train-time" placeholder="_ _:_ _ AM/PM"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="train-freq">Frequency(min)</label>
+                            <input type="number" class="form-control" id="train-freq" placeholder="Train frequency"
+                                required>
+                        </div>
+                        <button type="submit" id="submit" class="btn btn-secondary">
+                            Submit
+                        </button>
+                        <button class="btn btn-secondary resetInput">
+                            Reset
+                        </button>
+
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery.js"></script>
 
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-database.js"></script>
-    <script src="assets/javascript/game.js"></script>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.1.0/firebase-database.js"></script>
+        <script src="assets/javascript/game.js"></script>
+        <footer></footer>
 </body>
 
 </html>
