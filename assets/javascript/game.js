@@ -28,21 +28,19 @@ function saveTrainData() {
 
     var trname = $("#train-name").val().trim();
     var trdestination = $("#train-destination").val().trim();
-    var trdeparture_time = $("#train-time").val();
+    var trdeparture_time = $("#train-time").val().trim();
     var trfreq = $("#train-freq").val().trim();
-    var minAway = 0;
 
     dataRef.push({
         name: trname,
         destination: trdestination,
         departure_time: trdeparture_time,
-        freq: trfreq,
-        minAway:minAway
+        freq: trfreq
     });
 
     $("#train-name").val("");
     $("#train-destination").val("");
-    $("#train-time").val("_ _ :_ _ _ _");
+    $("#train-time").val("_ _ _ _ ");
     $("#train-freq").val("");
 }
 
@@ -51,21 +49,48 @@ $("#submit").on("click", function (event) {
     saveTrainData();
 });
 
-dataRef.on("child_added", function (childsnapshot) {
-    console.log("childSnapshot=",childsnapshot);
+dataRef.on("child_added", function (childSnapshot) {
+    console.log("childSnapshot=",childSnapshot);
     //Store submitted data into variable
-    var child_name = childsnapshot.val().name;
-    var child_destination = childsnapshot.val().destination;
-    var child_departure = childsnapshot.val().departure_time;
-    var child_freq = childsnapshot.val().freq;
+    var child_name = childSnapshot.val().name;
+    var child_destination = childSnapshot.val().destination;
+    var child_departure = childSnapshot.val().departure_time;
+    
+    console.log("Departure=",child_departure);
+
+    var child_freq = parseInt(childSnapshot.val().freq);
+    var frequency = parseInt(child_freq);
+    
+    console.log("frequency=",frequency);
+    
     var child_minAway = 0;
+    var currentTime = moment();
+    var dateConvert = moment(childSnapshot.val().time, "HHmm").subtract(1, "years");
+
+    var trainTime = moment(dateConvert).format("HHmm");
+
+    //difference bw the times
+    var timeConvert = moment(trainTime, "HHmm").subtract(1, "years");
+    var timeDifference = moment().diff(moment(timeConvert), "minutes");
+
+    //remainder
+    var timeRemaining = timeDifference % frequency;
+
+    //time until next train
+    var timeAway = frequency - timeRemaining;
+
+    //next train arrival
+    var nextArrival = moment().add(timeAway, "minutes");
+
+    var arrivalDisplay = moment(nextArrival).format("HHmm");
+
     //Create the new row
     var newRow = $('<tr scope="row">').append(
         $("<td>").text(child_name),
         $("<td>").text(child_destination),
-        $("<td>").text(child_departure),
+        $("<td>").text(moment(child_departure,"hhmm").format('LT')),
         $("<td>").text(child_freq),
-        $("<td>").text(child_minAway)
+        $("<td>").text(arrivalDisplay)
     );
     // Append the new row to the table
     $("#schedule-table > tbody").append(newRow);
