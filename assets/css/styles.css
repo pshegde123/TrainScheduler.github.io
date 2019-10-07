@@ -1,0 +1,21 @@
+* {
+    box-sizing: border-box;
+}
+div {
+	display: block;
+}
+.title{
+    color: white;
+}
+.parallax{
+   /*background-image: url("../images/train-fall-foliage.jpg");*/
+   background-image: url("https://data.whicdn.com/images/295811969/original.gif");
+  /* Set a specific height */
+  width: 100%;
+  min-height: 500px; 
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
