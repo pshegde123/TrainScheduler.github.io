@@ -1,14 +1,13 @@
-//var train_data = {
+// Declare variables to store form data
 var name, destination, departure = "";
 var freq = 0;
-var minAway=0;
-//};
+var minAway = 0;
 
 //Validate form inputs
-bootstrapValidate("#train-name","required:Please fill out this field!");
-bootstrapValidate("#train-destination","required:Please fill out this field!");
-bootstrapValidate("#train-time","required:Please fill out this field!");
-bootstrapValidate("#train-freq","required:Please fill out this field!");    
+bootstrapValidate("#train-name", "required:Please fill out this field!");
+bootstrapValidate("#train-destination", "required:Please fill out this field!");
+bootstrapValidate("#train-time", "required:Please fill out this field!");
+bootstrapValidate("#train-freq", "required:Please fill out this field!");
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -24,7 +23,6 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 database = firebase.database();
 var dataRef = database.ref();
-console.log("dataRef=", dataRef);
 
 function saveTrainData() {
 
@@ -33,6 +31,7 @@ function saveTrainData() {
     var trdeparture_time = $("#train-time").val();
     var trfreq = $("#train-freq").val().trim();
     var minAway = 0;
+
     dataRef.push({
         name: trname,
         destination: trdestination,
@@ -53,7 +52,7 @@ $("#submit").on("click", function (event) {
 });
 
 dataRef.on("child_added", function (childsnapshot) {
-
+    console.log("childSnapshot=",childsnapshot);
     //Store submitted data into variable
     var child_name = childsnapshot.val().name;
     var child_destination = childsnapshot.val().destination;
@@ -68,7 +67,10 @@ dataRef.on("child_added", function (childsnapshot) {
         $("<td>").text(child_freq),
         $("<td>").text(child_minAway)
     );
-
     // Append the new row to the table
     $("#schedule-table > tbody").append(newRow);
 });
+	//reset functionality
+	$(".resetInput").on("click", function(event){
+    	location.reload();
+	});
