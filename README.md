@@ -2,6 +2,8 @@
 
 Train Scheduler is an app that allows users to create and delete fictional trains schedule.
 
+![](./assets/images/trainscheduler.PNG)
+
 ### Overview
 The Train Scheduler Application begins with a form that requests the train name, destination, first train time, and frequency. Once entered, the train is stored in [Firebase](https://firebase.google.com/) database and is displayed under 'Current train schedule' section. The frequency, arrival time, and minutes away is determined by [MomentJS](https://momentjs.com/) javascript library. Trains can then be removed from the table.
 
